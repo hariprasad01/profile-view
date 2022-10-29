@@ -12,8 +12,6 @@ export const getAllUsers = async () => {
 export const getUserById = async (id) => {
   const docRef = doc(db, 'users', id)
   const data = await getDoc(docRef)
-  console.log('formatDocumentResponse(data): ', formatDocumentResponse(data));
-
   return formatDocumentResponse(data);
 }
 
