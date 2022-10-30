@@ -8,6 +8,8 @@ export default function Form(props) {
   const { formItems, formData, onSubmit } = props;
 
   const [localFormData, setLocalFormData] = useState(formData);
+  const [localFormItems, setLocalFormItems] = useState(formItems);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
   useEffect(() => {
     setLocalFormData(formData)
@@ -17,7 +19,44 @@ export default function Form(props) {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
     const udpatedFormData = { ...localFormData, [fieldName]: fieldValue }
+    let errorFlag = false;
+    const udpatedFormItems = localFormItems.map(item => {
+      if (item.name === fieldName) {
+        if (item.validate?.length > 0) {
+          for (let i = 0; i < item.validate.length; i++) {
+            const validationObject = item.validate[i];
+            if (validationObject.criteria === 'length') {
+              if (fieldValue && fieldValue.length !== validationObject.value) {
+                item.error = true;
+                item.helperText = validationObject.helperText;
+                errorFlag = true
+                return item;
+              }
+            } else if (validationObject.criteria === 'regex') {
+              if (fieldValue && !validationObject.value.test(fieldValue)) {
+                item.error = true;
+                item.helperText = validationObject.helperText;
+                errorFlag = true
+                return item;
+              }
+            } else if (validationObject.criteria === 'required') {
+              if (!fieldValue) {
+                item.error = true;
+                item.helperText = validationObject.helperText;
+                errorFlag = true
+                return item;
+              }
+            }
+          }
+          item.error = false;
+          item.helperText = '';
+        }
+      }
+      return item
+    })
+    setLocalFormItems(udpatedFormItems)
     setLocalFormData(udpatedFormData);
+    setSubmitDisabled(errorFlag);
   };
 
   const handleSubmit = (event) => {
@@ -31,10 +70,10 @@ export default function Form(props) {
   }
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} onReset={handleReset} sx={{ m:3 }}>
+    <Box component="form" noValidate onSubmit={handleSubmit} onReset={handleReset} sx={{ m: 3 }}>
       <Grid container spacing={6}>
         {
-          formItems.map((item) => {
+          localFormItems.map((item) => {
             return (
               <Grid item xs={12} sm={6} key={item.name}>
                 <TextInput {...item} value={localFormData[item.name]} onChange={handleChange} />
@@ -57,6 +96,7 @@ export default function Form(props) {
         <Grid item xs={12} sm={6}>
           <Button
             fullWidth
+            disabled = {submitDisabled}
             type="submit"
             variant="contained"
             sx={{ mt: 3, mb: 2 }}

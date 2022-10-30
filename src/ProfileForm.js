@@ -16,35 +16,84 @@ const profileFormItems = [
   {
     name: 'firstName',
     label: "First Name",
+    type: "text",
+    validate: [
+      {
+        criteria: 'required',
+        helperText: "First name is mandatory.",
+      },
+      {
+        criteria: 'regex',
+        value: /^[A-Za-z]+$/,
+        helperText: "Name cannot have special characters or numbers.",
+      }
+    ],
     icon: <PersonIcon />
   },
   {
     name: 'lastName',
     label: "Last Name",
+    type: "text",
+    validate: [
+      {
+        criteria: 'regex',
+        value: /^[A-Za-z]+$/,
+        helperText: "Name cannot have special characters or numbers.",
+      }
+    ],
     icon: <PersonIcon />
   },
   {
     name: 'displayName',
+    type: "text",
     label: "Display Name",
     icon: <AccountBoxOutlinedIcon />
   },
   {
     name: 'email',
     label: "Email Address",
+    type: "email",
     icon: <MailOutlineIcon />
   },
   {
     name: 'workNo',
     label: "Phone No (Work)",
+    type: "text",
+    validate: [
+      {
+        criteria: 'length',
+        value: 10,
+        helperText: "Should be ten digits",
+      },
+      {
+        criteria: 'regex',
+        value: /^[0-9]+$/,
+        helperText: "Should be a number",
+      }
+    ],
     icon: <LocalPhoneOutlinedIcon />
   },
   {
     name: 'homeNo',
     label: "Phone No (Home)",
+    type: "text",
+    validate: [
+      {
+        criteria: 'length',
+        value: 10,
+        helperText: "Should be ten digits",
+      },
+      {
+        criteria: 'regex',
+        value: /^[0-9]+$/,
+        helperText: "Should be a number",
+      }
+    ],
     icon: <LocalPhoneOutlinedIcon />
   },
   {
     name: 'location',
+    type: "text",
     label: "Location",
     icon: <LocationOnOutlinedIcon />
   }
