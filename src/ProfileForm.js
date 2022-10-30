@@ -9,7 +9,7 @@ import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Form from './Components/Form/Form';
-import {getUserById, updateUserDetails} from './api'
+import { getUserById, updateUserDetails } from './api'
 
 const theme = createTheme();
 
@@ -53,7 +53,7 @@ const profileFormItems = [
 
 export default function ProfileForm() {
   const [formData, setFormData] = useState({})
-  
+
   useEffect(() => {
     getUserById('JYzT4N6pxfDBaxu5uru3').then(data => {
       setFormData(data);

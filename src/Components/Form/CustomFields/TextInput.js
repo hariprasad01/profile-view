@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField';
 import { InputAdornment } from '@mui/material';
 
 export default function TextInput(props) {
-  const { icon, value, ...rest} = props;
+  const { icon, value, ...rest } = props;
 
   return (
     <TextField
@@ -12,9 +12,9 @@ export default function TextInput(props) {
             {icon}
           </InputAdornment>
         ),
-      }}      
+      }}
       fullWidth
-      value = {value || ''}
+      value={value || ''}
       {...rest}
     />
   )

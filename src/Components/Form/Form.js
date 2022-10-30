@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TextInput from './CustomFields/TextInput';
-import {useState, useEffect, useCallback} from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Form(props) {
   const { formItems, formData, onSubmit } = props;
@@ -16,7 +16,7 @@ export default function Form(props) {
   const handleChange = (event) => {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
-    const udpatedFormData = { ...localFormData, [fieldName]: fieldValue}
+    const udpatedFormData = { ...localFormData, [fieldName]: fieldValue }
     setLocalFormData(udpatedFormData);
   };
 
@@ -37,7 +37,7 @@ export default function Form(props) {
           formItems.map((item) => {
             return (
               <Grid item xs={12} sm={6} key={item.name}>
-                <TextInput {...item} value = {localFormData[item.name]} onChange={handleChange}/>
+                <TextInput {...item} value={localFormData[item.name]} onChange={handleChange} />
               </Grid>
             )
           })
