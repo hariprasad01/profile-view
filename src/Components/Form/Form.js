@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TextInput from './CustomFields/TextInput';
 import { useState, useEffect } from 'react'
+import { width } from '@mui/system';
 
 export default function Form(props) {
   const { formItems, formData, onSubmit } = props;
@@ -31,12 +32,12 @@ export default function Form(props) {
   }
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit} onReset={handleReset} sx={{ mt: 8 }}>
+    <Box component="form" noValidate onSubmit={handleSubmit} onReset={handleReset} sx={{ mt: 2 }}>
       <Grid container spacing={6}>
         {
           formItems.map((item) => {
             return (
-              <Grid item xs={12} sm={6} key={item.name}>
+              <Grid item xs={12} sm={4} key={item.name}>
                 <TextInput {...item} value={localFormData[item.name]} onChange={handleChange} />
               </Grid>
             )

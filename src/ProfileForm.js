@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PersonIcon from '@mui/icons-material/Person';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import Card from '@mui/material/Card';
+import { Grid, Typography } from '@mui/material';
+
 import Form from './Components/Form/Form';
 import { getUserById, updateUserDetails } from './api'
 
@@ -61,24 +63,69 @@ export default function ProfileForm() {
   }, [])
 
   const handleSubmit = (udpatedFormData) => {
-    updateUserDetails('JYzT4N6pxfDBaxu5uru3', udpatedFormData);
+    updateUserDetails('JYzT4N6pxfDBaxu5uru3', udpatedFormData)
+    .then((data) => {
+      setFormData(udpatedFormData);
+    });
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
+      {/* <Container component="main"> */}
+      <CssBaseline />
+      <Grid container spacing={1} sx={{ height: '100vh', paddingLeft: 3 }}>
+        <Grid item xs={12} sm={10} sx={{
+          padding: 3,
+          mt: 2
+        }}>
+          <Typography variant="h6" gutterBottom>
+            My Profile
+          </Typography>
+          <Card raised={true} sx={{
+            mt: 2,
+            padding: 4,
             alignItems: 'center',
-          }}
-        >
-          <Form formItems={profileFormItems} formData={formData} onSubmit={handleSubmit} onReset={handleSubmit}></Form>
-        </Box>
-      </Container>
+            borderRadius: 7,
+            boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'
+          }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                position: 'relative'
+              }}
+            >
+              <Form formItems={profileFormItems} formData={formData} onSubmit={handleSubmit} onReset={handleSubmit}></Form>
+            </Box>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={2} sx={{
+          backgroundColor: "#F8F8F8",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <img src='profilePic.jpg' width='50%' height='20%' style={{borderRadius:'12%', boxShadow: 'grey 0px 7px 29px 0px'}}></img>
+          <Typography variant="h6" sx={{
+            mt: 2
+          }}>
+            {`${formData.firstName} ${formData.lastName}`}
+          </Typography>
+          <Typography variant="subtitle1" sx={{
+            mt: 1
+          }}>
+            {`${formData.displayName}`}
+          </Typography>
+          <Typography variant="subtitle2" sx={{
+            mt: 1
+          }}>
+            {`${formData.email}`}
+          </Typography>
+        </Grid>
+      </Grid>
+      {/* </Container> */}
     </ThemeProvider>
   );
 }
