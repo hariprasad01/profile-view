@@ -3,12 +3,13 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TextInput from './CustomFields/TextInput';
 import { useState, useEffect } from 'react'
+import cloneDeep from 'lodash/cloneDeep';
 
 export default function Form(props) {
   const { formItems, formData, onSubmit } = props;
 
   const [localFormData, setLocalFormData] = useState(formData);
-  const [localFormItems, setLocalFormItems] = useState(formItems);
+  const [localFormItems, setLocalFormItems] = useState(cloneDeep(formItems));
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
   useEffect(() => {
@@ -66,7 +67,9 @@ export default function Form(props) {
 
   const handleReset = (event) => {
     event.preventDefault();
+    setLocalFormItems(cloneDeep(formItems))
     setLocalFormData(formData);
+    setSubmitDisabled(false);
   }
 
   return (
