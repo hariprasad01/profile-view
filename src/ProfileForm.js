@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PersonIcon from '@mui/icons-material/Person';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
@@ -12,8 +11,6 @@ import { Grid, Typography } from '@mui/material';
 
 import Form from './Components/Form/Form';
 import { getUserById, updateUserDetails } from './api'
-
-const theme = createTheme();
 
 const profileFormItems = [
   {
@@ -64,20 +61,20 @@ export default function ProfileForm() {
 
   const handleSubmit = (udpatedFormData) => {
     updateUserDetails('JYzT4N6pxfDBaxu5uru3', udpatedFormData)
-    .then((data) => {
-      setFormData(udpatedFormData);
-    });
+      .then(() => {
+        setFormData(udpatedFormData);
+      });
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <CssBaseline />
-      <Grid container spacing={1} sx={{ height: '100vh', paddingLeft: 6 }}>
-        <Grid item xs={12} sm={10} sx={{
+      <Grid container spacing={1} sx={{ height: '100vh', paddingLeft: 3.5, mt: 1 }}>
+        <Grid item xs={12} sm={9} sx={{
           padding: 6,
           mt: 2
         }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6">
             My Profile
           </Typography>
           <Card raised={true} sx={{
@@ -99,14 +96,14 @@ export default function ProfileForm() {
             </Box>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={2} sx={{
+        <Grid item xs={12} sm={3} sx={{
           backgroundColor: "#F8F8F8",
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          <img src='profilePic.jpg' width='50%' height='20%' alt='profile' style={{borderRadius:'12%', boxShadow: 'grey 0px 7px 29px 0px'}}></img>
+          <img src='profilePic.jpg' width='50%' height='auto' alt='profile' style={{ borderRadius: '12%', boxShadow: 'grey 0px 7px 29px 0px' }}></img>
           <Typography variant="h6" sx={{
             mt: 2
           }}>
@@ -124,6 +121,6 @@ export default function ProfileForm() {
           </Typography>
         </Grid>
       </Grid>
-    </ThemeProvider>
+    </>
   );
 }
