@@ -9,6 +9,8 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Card from '@mui/material/Card';
 import { Grid, Typography } from '@mui/material';
 import {setUserName} from './StateStore';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Form from './Components/Form/Form';
 import { getUserById, updateUserDetails } from './api'
@@ -102,19 +104,24 @@ const profileFormItems = [
 
 export default function ProfileForm() {
   const [formData, setFormData] = useState({})
+  const [submitInProgress, setSubmitInProgress] = useState(false);
 
   useEffect(() => {
+    setSubmitInProgress(true)
     getUserById('JYzT4N6pxfDBaxu5uru3').then(data => {
       setFormData(data);
       setUserName(data.firstName);
+      setSubmitInProgress(false)
     })
   }, [])
 
   const handleSubmit = (udpatedFormData) => {
+    setSubmitInProgress(true)
     updateUserDetails('JYzT4N6pxfDBaxu5uru3', udpatedFormData)
       .then(() => {
         setFormData(udpatedFormData);
         setUserName(udpatedFormData.firstName);
+        setSubmitInProgress(false)
       });
   };
 
@@ -173,6 +180,12 @@ export default function ProfileForm() {
           </Typography>
         </Grid>
       </Grid>
+      <Backdrop
+        sx={{ color: '#D32F2F', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={submitInProgress}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }
