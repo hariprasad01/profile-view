@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TextInput from './CustomFields/TextInput';
 import { useState, useEffect } from 'react'
-import { width } from '@mui/system';
 
 export default function Form(props) {
   const { formItems, formData, onSubmit } = props;

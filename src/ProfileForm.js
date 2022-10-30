@@ -71,11 +71,10 @@ export default function ProfileForm() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <Container component="main"> */}
       <CssBaseline />
-      <Grid container spacing={1} sx={{ height: '100vh', paddingLeft: 3 }}>
+      <Grid container spacing={1} sx={{ height: '100vh', paddingLeft: 6 }}>
         <Grid item xs={12} sm={10} sx={{
-          padding: 3,
+          padding: 6,
           mt: 2
         }}>
           <Typography variant="h6" gutterBottom>
@@ -107,7 +106,7 @@ export default function ProfileForm() {
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          <img src='profilePic.jpg' width='50%' height='20%' style={{borderRadius:'12%', boxShadow: 'grey 0px 7px 29px 0px'}}></img>
+          <img src='profilePic.jpg' width='50%' height='20%' alt='profile' style={{borderRadius:'12%', boxShadow: 'grey 0px 7px 29px 0px'}}></img>
           <Typography variant="h6" sx={{
             mt: 2
           }}>
@@ -125,7 +124,6 @@ export default function ProfileForm() {
           </Typography>
         </Grid>
       </Grid>
-      {/* </Container> */}
     </ThemeProvider>
   );
 }
