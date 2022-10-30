@@ -8,6 +8,7 @@ import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Card from '@mui/material/Card';
 import { Grid, Typography } from '@mui/material';
+import {setUserName} from './StateStore';
 
 import Form from './Components/Form/Form';
 import { getUserById, updateUserDetails } from './api'
@@ -105,6 +106,7 @@ export default function ProfileForm() {
   useEffect(() => {
     getUserById('JYzT4N6pxfDBaxu5uru3').then(data => {
       setFormData(data);
+      setUserName(data.firstName);
     })
   }, [])
 
@@ -112,6 +114,7 @@ export default function ProfileForm() {
     updateUserDetails('JYzT4N6pxfDBaxu5uru3', udpatedFormData)
       .then(() => {
         setFormData(udpatedFormData);
+        setUserName(udpatedFormData.firstName);
       });
   };
 

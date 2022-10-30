@@ -27,7 +27,7 @@ import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
+import {useUserName} from './StateStore'
 
 const drawerWidth = 300;
 
@@ -83,6 +83,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function AppBase(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const userName = useUserName();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -117,7 +118,7 @@ export default function AppBase(props) {
                 justifyContent: 'center'
               }}>
                 <Typography variant="h6" noWrap component="span" >
-                  Good Morning
+                  Good Morning, {userName.userName}
                 </Typography>
                 <Typography variant="subtitle1" noWrap component="span" >
                   {getFormattedDateString()}
@@ -148,7 +149,7 @@ export default function AppBase(props) {
                   flexDirection: 'column',
                 }}>
                   <Typography variant="subtitle2" noWrap component="span" >
-                    Adam
+                    {userName.userName}
                   </Typography>
                   <Typography variant="caption" noWrap component="span" >
                     Project Manager
