@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import cloneDeep from 'lodash/cloneDeep';
 
 export default function Form(props) {
-  const { formItems, formData, onSubmit } = props;
+  const { formItems, formData, onSubmit, onChange } = props;
 
   const [localFormData, setLocalFormData] = useState(formData);
   const [localFormItems, setLocalFormItems] = useState(cloneDeep(formItems));
@@ -55,9 +55,12 @@ export default function Form(props) {
       }
       return item
     })
-    setLocalFormItems(udpatedFormItems)
+    setLocalFormItems(udpatedFormItems);
     setLocalFormData(udpatedFormData);
     setSubmitDisabled(errorFlag);
+    if(!errorFlag) {
+      onChange(udpatedFormData);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -70,6 +73,7 @@ export default function Form(props) {
     setLocalFormItems(cloneDeep(formItems))
     setLocalFormData(formData);
     setSubmitDisabled(false);
+    onChange(formData);
   }
 
   return (

@@ -105,15 +105,21 @@ const profileFormItems = [
 export default function ProfileForm() {
   const [formData, setFormData] = useState({})
   const [submitInProgress, setSubmitInProgress] = useState(false);
+  const [previewData, setPreviewData] = useState({})
 
   useEffect(() => {
     setSubmitInProgress(true)
     getUserById('JYzT4N6pxfDBaxu5uru3').then(data => {
       setFormData(data);
+      setPreviewData(data);
       setUserName(data.firstName);
       setSubmitInProgress(false)
     })
   }, [])
+
+  const handleChange = ((updatedData) => {
+    setPreviewData(updatedData);
+  })
 
   const handleSubmit = (udpatedFormData) => {
     setSubmitInProgress(true)
@@ -151,7 +157,7 @@ export default function ProfileForm() {
                 position: 'relative'
               }}
             >
-              <Form formItems={profileFormItems} formData={formData} onSubmit={handleSubmit} onReset={handleSubmit}></Form>
+              <Form formItems={profileFormItems} formData={formData} onSubmit={handleSubmit} onReset={handleSubmit} onChange={handleChange}></Form>
             </Box>
           </Card>
         </Grid>
@@ -166,17 +172,22 @@ export default function ProfileForm() {
           <Typography variant="h6" sx={{
             mt: 2
           }}>
-            {`${formData.firstName} ${formData.lastName}`}
+            {`${previewData.firstName} ${previewData.lastName}`}
           </Typography>
           <Typography variant="subtitle1" sx={{
             mt: 1
           }}>
-            {`${formData.displayName}`}
+            {`${previewData.displayName}`}
           </Typography>
           <Typography variant="subtitle2" sx={{
             mt: 1
           }}>
-            {`${formData.email}`}
+            {`${previewData.email}`}
+          </Typography>
+          <Typography variant="subtitle2" sx={{
+            mt: 1
+          }}>
+            {`${previewData.workNo}`}
           </Typography>
         </Grid>
       </Grid>
