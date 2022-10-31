@@ -172,22 +172,22 @@ export default function ProfileForm() {
           <Typography variant="h6" sx={{
             mt: 2
           }}>
-            {`${previewData.firstName} ${previewData.lastName}`}
+            {`${previewData.firstName || ''} ${previewData.lastName || ''}`}
           </Typography>
           <Typography variant="subtitle1" sx={{
             mt: 1
           }}>
-            {`${previewData.displayName}`}
+            {`${previewData.displayName || ''}`}
           </Typography>
           <Typography variant="subtitle2" sx={{
             mt: 1
           }}>
-            {`${previewData.email}`}
+            {`${previewData.email  || ''}`}
           </Typography>
           <Typography variant="subtitle2" sx={{
             mt: 1
           }}>
-            {`${previewData.workNo}`}
+            {`${previewData.workNo || ''}`}
           </Typography>
         </Grid>
       </Grid>
