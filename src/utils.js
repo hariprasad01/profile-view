@@ -7,7 +7,7 @@ const monthArray = ["January", "February", "March", "April", "May", "June", "Jul
 
 export const getFormattedDateString = () => {
   const dateObj = new Date();
-  const month = dateObj.getUTCMonth() + 1; //months from 1-12
+  const month = dateObj.getUTCMonth(); //months from 1-12
   const day = dateObj.getUTCDate();
   const year = dateObj.getUTCFullYear();
   return `${monthArray[month]} ${day}, ${year}`;
