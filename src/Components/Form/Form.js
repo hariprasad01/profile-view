@@ -20,7 +20,6 @@ export default function Form(props) {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
     const udpatedFormData = { ...localFormData, [fieldName]: fieldValue }
-    let errorFlag = false;
     const udpatedFormItems = localFormItems.map(item => {
       if (item.name === fieldName) {
         if (item.validate?.length > 0) {
@@ -30,21 +29,18 @@ export default function Form(props) {
               if (fieldValue && fieldValue.length !== validationObject.value) {
                 item.error = true;
                 item.helperText = validationObject.helperText;
-                errorFlag = true
                 return item;
               }
             } else if (validationObject.criteria === 'regex') {
               if (fieldValue && !validationObject.value.test(fieldValue)) {
                 item.error = true;
                 item.helperText = validationObject.helperText;
-                errorFlag = true
                 return item;
               }
             } else if (validationObject.criteria === 'required') {
               if (!fieldValue) {
                 item.error = true;
                 item.helperText = validationObject.helperText;
-                errorFlag = true
                 return item;
               }
             }
@@ -57,8 +53,12 @@ export default function Form(props) {
     })
     setLocalFormItems(udpatedFormItems);
     setLocalFormData(udpatedFormData);
-    setSubmitDisabled(errorFlag);
-    if(!errorFlag) {
+    const errorItems = localFormItems.filter(item => item.error);
+    console.log('errorItems: ', errorItems);
+    if(errorItems.length > 0) {
+      setSubmitDisabled(true);
+    } else {
+      setSubmitDisabled(false);
       onChange(udpatedFormData);
     }
   };
